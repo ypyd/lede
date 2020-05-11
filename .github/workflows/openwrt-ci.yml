@@ -60,6 +60,14 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
+      - name: add the missed packages
+        run: |
+          cd package
+          mkdir missed
+          cd missed
+          git clone https://github.com/kenzok8/openwrt-packages.git
+          git clone https://github.com/kenzok8/small.git
+          
       - name: Generate configuration file
         run: |
           rm -f ./.config*
@@ -163,6 +171,9 @@ jobs:
           CONFIG_PACKAGE_luci-app-webadmin=y
           CONFIG_PACKAGE_luci-app-wireguard=y
           CONFIG_PACKAGE_luci-app-wrtbwmon=y
+          CONFIG_PACKAGE_luci-app-softethervpn=y
+          CONFIG_PACKAGE_luci-app-passwall=y
+          CONFIG_PACKAGE_luci-app-openclash=y
           EOF
 
           # LuCI主题:
